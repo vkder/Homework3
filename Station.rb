@@ -1,25 +1,27 @@
 class Station
   attr_reader :station_name
 
-  def iniatilize(station_name)
-    @station_name = station_name
-    train_list = []
+  def iniatilize(name)
+    @name = name 
+    trains = []
+    types = []
   end
 
-  def new_train(train_name) #принимаем поезда на станцию
-    @@train_name = train_name
-    train_list << train_name #заполняем массив
+  def new_train_and_type(train, type) 
+    trains << train 
+    types << type
+    puts "на станцию #{name} пришел поезд № #{train.number}"
   end
 
-  def show_train_list_and_type(type)
-    @train_list_pass.each { |train_name|
+  def show_train_list_and_type
+    @trains.each { |train_name|
     puts train_name }
-    counter = 0
-    @train_list.each {|train| counter += 1 if train.type.eql?(type) }
-    puts "Количество поездов на станции #{station_name} типа #{type} равно #{counter}."
+    
+    types.inject(Hash.new(0) { |train, type| train[type] += 1 ; train }
   end
 
-  def send_train
-    @train_list.delete(train_list)
+  def send_train(train)
+    @trains.delete(train)
   end
+
 end
