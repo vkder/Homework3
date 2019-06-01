@@ -1,6 +1,6 @@
 class Train
   attr_accessor :speed, :station
-  attr_reader :number, :type, :vagon, :route
+  attr_reader :number, :type, :vagon, :route, :index
 
   def initialize(number, type, vagon, route)
     @number = number
@@ -18,7 +18,7 @@ class Train
     speed
   end
 
-  def stop(speed)
+  def stop
     speed = 0
   end
 
@@ -27,25 +27,39 @@ class Train
   end
 
   def delete_vagon
-    vagon -= 1 if speed == 0
-  end
+    if vagon.zero?
+      puts"Error, vagonov bolwe ne ostalos"
+    else
+     vagon -= 1 if speed == 0
+     end
+   end
 
   def take_route(route)
     @route = route
-    station = route.stations.first
-    puts "поезд номер #{number} едет по маршруту #{route.stations}"
-  end
-
-  def move_next_st
-  station = route.stations[route.stations.index(station) + 1]
-  end
-
-  def move_prev_st
-  station = route.stations[route.stations.index(station) - 1]
+    @index = 0
   end
 
   def current_station
-  station
+    @index = 0
+  end
+
+  def next_station
+    route.stations[@index + 1] 
+  end
+
+  def last_station
+    route.stations[@index - 1] 
+  end
+
+  def move_next
+    @current_station.send_a_train
+    @next_station.send_a_train
+    @index +=1
+  end
+
+  def move_back
+    @current_station.send_a_train
+    @last_station.send_a_train
+    @index -=1
   end
 end
-
