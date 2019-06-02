@@ -4,12 +4,10 @@ class Station
   def iniatilize(name)
     @name = name 
     trains = []
-    types = []
   end
 
-  def new_train_and_type(train, type) 
+  def new_train_and_type(train) 
     trains << train 
-    types << type
     puts "на станцию #{name} пришел поезд № #{train.number}"
   end
 
@@ -17,8 +15,7 @@ class Station
     @trains.each { |train_name|
     puts train_name }
     
-    types.inject(Hash.new(0) { |train, type| train[type] += 1 ; train }
-  end
+    @trains_list.count { |train| train.type += type }  end
 
   def send_train(train)
     @trains.delete(train)

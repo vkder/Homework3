@@ -28,7 +28,7 @@ class Train
 
   def delete_vagon
     if vagon.zero?
-      puts"Error, vagonov bolwe ne ostalos"
+      puts"Error"
     else
      vagon -= 1 if speed == 0
      end
@@ -57,21 +57,35 @@ class Train
   end
 
   def last_station
-    while @index >= 0 do
-      route.stations[@index - 1] unless first_station?
+    if @index >= 0 
+      puts"Error, cannot delete last station"
+    else
+      route.stations[@index - 1]
+    end
+  end
+
+ def go_to(station)
+    if route.nil?
+      puts "Error, нет маршрута"
+    elsif route.stations.include?(station)
+      @station.send_train(self) if @station
+      station.take_the_train(self)
+      index += 1
+    else
+      puts "такого маршрута не существует"
     end
   end
 
 
-  def move_next
-    current_station.send_a_train(self)
-    next_station.take_the_train(self)
-    @index +=1
-  end
-
-  def move_back
-    current_station.send_a_train(self)
-    last_station.take_the_train(self)
-    @index -=1
+  def move_back(station)
+    if route.nil?
+      puts "Error, нет маршрута"
+    elsif route.stations.include?(station)
+      @station.send_train(self) if @station
+      station.take_the_train(self)
+      index -= 1
+    else
+      puts "такого маршрута не существует"
+    end
   end
 end

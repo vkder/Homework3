@@ -11,7 +11,7 @@ class Route
   end
 
   def remove_station(station)
-    if [stations.first, stations.last].none?
+    if [stations.first, stations.last].include?
       puts"Erorr, cannot delete 1st station"
     else
       stations.delete(station)
