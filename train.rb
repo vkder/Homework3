@@ -57,8 +57,8 @@ class Train
   end
 
   def last_station
-    if @index >= 0 
-      puts"Error, cannot delete last station"
+    if @index == 0 
+      puts"Error"
     else
       route.stations[@index - 1]
     end
