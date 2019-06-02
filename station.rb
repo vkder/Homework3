@@ -11,7 +11,7 @@ class Station
     puts "на станцию #{name} пришел поезд № #{train.number}"
   end
 
-  def show_train_list_and_type
+  def show_train_list_and_type(type)
     @trains.each { |train_name|
     puts train_name }
     
