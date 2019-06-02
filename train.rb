@@ -43,23 +43,35 @@ class Train
     @index = 0
   end
 
+  def last_station?
+    current_station == route.stations.last
+  end
+
+  def first_station?
+    current_station == route.stations[0]
+  end
+
+
   def next_station
-    route.stations[@index + 1] 
+    route.stations[@index + 1] unless last_station?
   end
 
   def last_station
-    route.stations[@index - 1] 
+    while @index >= 0 do
+      route.stations[@index - 1] unless first_station?
+    end
   end
 
+
   def move_next
-    @current_station.send_a_train
-    @next_station.send_a_train
+    current_station.send_a_train(self)
+    next_station.take_the_train(self)
     @index +=1
   end
 
   def move_back
-    @current_station.send_a_train
-    @last_station.send_a_train
+    current_station.send_a_train(self)
+    last_station.take_the_train(self)
     @index -=1
   end
 end
